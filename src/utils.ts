@@ -19,3 +19,11 @@ export function validateEmail(email: string) {
     email
   );
 }
+
+export function getGitHubUsernames(ghAuthStatus: string): string[] {
+  return (
+    ghAuthStatus.match(
+      /(?<=Logged in to github\.com account |as )(.*)(?= )/gim
+    ) ?? []
+  );
+}

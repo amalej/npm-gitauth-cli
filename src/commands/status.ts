@@ -1,20 +1,18 @@
 import chalk from "chalk";
-import { execPromise } from "../utils";
+import { execPromise, getGitHubUsernames } from "../utils";
 
 async function status() {
   console.log(`${chalk.yellow("[INFO]")} running GitHub CLI`);
 
   const { stdout: ghAuthStatus } = await execPromise("gh auth status");
   const { stdout: gitConfigUserName } = await execPromise(
-    "git config get user.name"
+    "git config --get user.name"
   );
   const { stdout: gitConfigUserEmail } = await execPromise(
-    "git config get user.email"
+    "git config --get user.email"
   );
 
-  const ghAuthUsers: string[] =
-    ghAuthStatus.match(/(?<=Logged in to github\.com account )(.*)(?= )/gim) ??
-    [];
+  const ghAuthUsers: string[] = getGitHubUsernames(ghAuthStatus) ?? [];
 
   console.log(`${chalk.green("[SUCCESS]")} Logging configs`);
   if (ghAuthUsers[0]) {

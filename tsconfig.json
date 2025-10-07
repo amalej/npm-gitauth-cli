@@ -1,12 +1,8 @@
 {
-    "ts-node": {
-        "esm": true
-    },
     "compilerOptions": {
         "module": "commonjs",
         "esModuleInterop": true,
         "target": "es6",
-        "moduleResolution": "node",
         "lib": [
             "es2017",
             "es7",
@@ -17,7 +13,7 @@
         "declaration": true,
         "sourceMap": true,
         "outDir": "dist",
-        "strictNullChecks": true
+        "strictNullChecks": true,
     },
     "lib": [
         "es2015"

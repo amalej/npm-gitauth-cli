@@ -24,7 +24,7 @@ async function update(username: string) {
   );
 
   const { stdout: gitConfigUserName } = await execPromise(
-    "git config get user.name"
+    "git config --get user.name"
   );
 
   if (gitConfigUserName.trim() === username) {

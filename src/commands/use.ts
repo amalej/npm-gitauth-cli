@@ -1,16 +1,15 @@
 import inquirer from "inquirer";
 import config from "../config";
-import { execPromise, validateEmail } from "../utils";
+import { execPromise, getGitHubUsernames, validateEmail } from "../utils";
 import chalk from "chalk";
 
 async function use(username: string) {
   console.log(
     `${chalk.yellow("[INFO]")} fetching active GitHub account status`
   );
-  const { stdout } = await execPromise("gh auth status");
+  const { stdout: ghAuthStatus } = await execPromise("gh auth status");
 
-  const ghAuthUsers: string[] =
-    stdout.match(/(?<=Logged in to github\.com account )(.*)(?= )/gim) ?? [];
+  const ghAuthUsers: string[] = getGitHubUsernames(ghAuthStatus) ?? [];
 
   if (!ghAuthUsers.includes(username)) {
     const userList = ghAuthUsers.map((item) => `- ${item}`).join("\n");
